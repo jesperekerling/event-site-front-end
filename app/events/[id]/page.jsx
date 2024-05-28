@@ -8,21 +8,29 @@ function ShowEvent() {
   const { id } = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/events/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`)
       .then(response => response.json())
       .then(data => setEvent(data))
   }, [id])
 
   return (
     <div>
-        <h1 className='mb-7 text-3xl'>{event.title}</h1>
+        <p><a href="/events">Back to events</a></p>
+        <h1 className='mb-7 text-3xl font-bold'>{event.title}</h1>
         
         <img src={event.image} alt={event.description} />
         
-        <h2 className='my-5'>Event Description:</h2>
+        <button className='bg-black text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold'>
+          Boka event
+        </button>
+        <h2 className='my-5 font-bold'>Event Description</h2>
         <p className='mb-7'>{event.description}</p>
         
         <p>Price: ${event.price}</p>
+        <p>Date: {event.date}</p>
+        <p>
+            Seats: {event.seats} (2500 left)
+        </p>
     </div>
   )
 }
