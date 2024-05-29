@@ -4,42 +4,64 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { useUser } from '@clerk/clerk-react'
 
-
-
-
 function ShowEvent() {
   const [event, setEvent] = useState({})
   const { id } = useParams()
   const { user } = useUser();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`)
-      .then(response => response.json())
-      .then(data => setEvent(data))
-  }, [id])
-
-  const fetchEvent = () => {
-    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`)
-      .then(response => response.json())
-      .then(data => setEvent(data))
+  const fetchEvent = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`);
+    const data = await response.json();
+    setEvent(data);
+    setLoading(false);
   }
-  
-  const handleButtonClick = () => {
+
+  const checkBooking = async () => {
+    if (!user) {
+      return;
+    }
+
+    const userId = user.id;
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}?id=${userId}`);
+    const data = await response.json();
+    setEvent(data);
+    setLoading(false);
+  }
+
+  const handleButtonClick = async () => {
     const userId = user.id;
   
-    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ userId }),
-    })
-    .then(() => fetchEvent()) // Fetch the updated data after the POST request
-  }
+    });
   
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    await checkBooking();
+  }
+
   useEffect(() => {
-    fetchEvent() // Fetch the data when the component mounts
-  }, [id])
+    if (user) {
+      checkBooking(); // Check the booking when the component mounts
+    }
+  }, [id, user?.id]);
+
+  useEffect(() => {
+    fetchEvent(); // Fetch the data when the component mounts
+  }, [id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  console.log(event.booked)
 
   return (
     <div>
@@ -52,7 +74,7 @@ function ShowEvent() {
           className='bg-black text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold'
           onClick={handleButtonClick}
         >
-          Boka plats på eventet
+          {event.booked === true ? 'Bokad' : 'Boka event'}
         </button>
 
         <h2 className='my-5 font-bold'>Event Description</h2>

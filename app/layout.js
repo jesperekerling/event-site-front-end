@@ -1,9 +1,9 @@
-import { Inter } from "next/font/google";
+import { inter } from './fonts'
 import "./globals.css";
 import Header from "./_components/header";
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata = {
   title: "Event Website",
