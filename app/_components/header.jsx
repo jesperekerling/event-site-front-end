@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { UserButton } from '@clerk/nextjs'
 
 function Header() {
   return (
@@ -10,7 +11,7 @@ function Header() {
         </Link>
       </span>
 
-      <ul className='inline-flex pr-20 gap-5'>
+      <ul className='inline-flex gap-5'>
         <li>
           <Link href="/events">
             All Events
@@ -22,6 +23,10 @@ function Header() {
           </Link>
         </li>
       </ul>
+
+      <span className="px-5">
+        <UserButton />
+      </span>
       
     </header>
   )
