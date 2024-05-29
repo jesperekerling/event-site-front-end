@@ -71,10 +71,11 @@ function ShowEvent() {
         <img src={event.image} alt={event.description} />
         
         <button 
-          className='bg-black text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold'
+          className={`text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold w-full ${event.seats === 0 ? 'bg-red-800' : 'bg-green-800'}`}
           onClick={handleButtonClick}
+          disabled={event.seats === 0}
         >
-          {event.booked === true ? 'Bokad' : 'Boka event'}
+          {event.seats === 0 ? 'Event fully booked' : (event.booked === true ? 'You are registered for the event' : 'Sign me up for the event')}
         </button>
 
         <h2 className='my-5 font-bold'>Event Description</h2>
