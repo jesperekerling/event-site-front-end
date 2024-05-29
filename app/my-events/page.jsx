@@ -11,6 +11,7 @@ function ShowMyEvents() {
   const { user } = useUser()
   const [loading, setLoading] = useState(true)
 
+
   useEffect(() => {
     if (user) {
       fetch(`http://localhost:3000/api/events?id=${user.id}`)

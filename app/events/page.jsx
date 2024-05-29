@@ -10,7 +10,7 @@ function ShowEvents() {
   const [endDate, setEndDate] = useState(null)
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/events')
+    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events`)
       .then(response => response.json())
       .then(data => {
         // Sort events by location and date
@@ -91,10 +91,10 @@ function ShowEvents() {
                     alt={event.description}
                     width={500}
                     height={300}
-                    className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200'
+                    className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200 rounded'
                   />
-                  <p className='font-bold md:text-lg py-2'>{event.title}</p>
-                  <p className='text-sm md:text-base'>{event.date} - {event.location}</p>
+                  <p className='font-bold md:text-lg pt-2 pb-1 text-blue-900'>{event.title}</p>
+                  <p className='text-xs md:text-sm text-gray-500 pb-3'>{event.date} - {event.location}</p>
               </Link>
             </div>
           ))}

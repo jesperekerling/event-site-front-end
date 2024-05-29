@@ -6,7 +6,7 @@ import { albert_sans } from './../fonts'
 
 function Header() {
   return (
-    <header className='container p-3 bg-slate-900 text-white flex'>
+    <header className='container p-3 bg-slate-900 text-white flex items-center'>
 
       <span className={`${albert_sans.className} mx-8 text-2xl flex-1 font-bold`}>
         <Link href="/">
@@ -27,7 +27,7 @@ function Header() {
         </li>
       </ul>
 
-      <span className="px-5">
+      <span className="px-5 mt-2">
         <UserButton />
       </span>
       
