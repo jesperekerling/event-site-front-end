@@ -18,6 +18,12 @@ function ShowEvent() {
       .then(data => setEvent(data))
   }, [id])
 
+  const fetchEvent = () => {
+    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`)
+      .then(response => response.json())
+      .then(data => setEvent(data))
+  }
+  
   const handleButtonClick = () => {
     const userId = user.id;
   
@@ -28,7 +34,12 @@ function ShowEvent() {
       },
       body: JSON.stringify({ userId }),
     })
+    .then(() => fetchEvent()) // Fetch the updated data after the POST request
   }
+  
+  useEffect(() => {
+    fetchEvent() // Fetch the data when the component mounts
+  }, [id])
 
   return (
     <div>
@@ -49,7 +60,7 @@ function ShowEvent() {
         
         <p>Price: ${event.price}</p>
         <p>Date: {event.date}</p>
-        <p>Atendees: {event.bookings}</p>
+        <p>People Attending: {event.bookings}</p>
         <p>
             Total Seats: {event.seats}
         </p>
