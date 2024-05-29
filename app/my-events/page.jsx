@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import Image from 'next/image'
+import Link from 'next/link'
+
 
 function ShowMyEvents() {
   const [events, setEvents] = useState([])
@@ -30,17 +32,17 @@ function ShowMyEvents() {
         <div className='grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6'>
         {Array.isArray(events) && events.map((event, index) => (
           <div key={index}>
-            <h2>{event.title}</h2>
-            <Image
-              src={event.image}
-              alt={event.description}
-              width={500}
-              height={300}
-              className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200'
-            />
-            <p>{event.date} - {event.location}</p>
-            <p>Price: {event.price}</p>
-            <p>Seats: {event.seats}</p>
+            <Link href={`/events/${event._id}`}>
+              <Image
+                src={event.image}
+                alt={event.description}
+                width={500}
+                height={300}
+                className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200'
+              />
+              <p className='font-bold md:text-lg py-2'>{event.title}</p>
+              <p className='text-sm md:text-base'>{event.date} - {event.location}</p>
+            </Link>
           </div>
         ))}
         </div>
