@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { UserButton } from '@clerk/nextjs'
-import { andada_pro } from './../fonts'
+import { albert_sans } from './../fonts'
 
 
 
@@ -8,7 +8,7 @@ function Header() {
   return (
     <header className='container p-3 bg-slate-900 text-white flex'>
 
-      <span className={`${andada_pro.className} mx-10 text-2xl flex-1`}>
+      <span className={`${albert_sans.className} mx-8 text-2xl flex-1 font-bold`}>
         <Link href="/">
           Event site
         </Link>

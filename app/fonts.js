@@ -1,11 +1,13 @@
-import { Andada_Pro, Inter } from 'next/font/google'
+import { Albert_Sans, Inter } from 'next/font/google'
  
 export const inter = Inter({
   subsets: ['latin'],
+  weight: ['400', '700', '800'],
   display: 'swap',
 })
  
-export const andada_pro = Andada_Pro({
+export const albert_sans = Albert_Sans({
   subsets: ['latin'],
+  weight: ['400', '700', '800'],
   display: 'swap',
 })

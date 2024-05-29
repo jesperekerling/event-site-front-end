@@ -65,8 +65,12 @@ function ShowEvent() {
 
   return (
     <div>
-        <p><a href="/events">Back to events</a></p>
-        <h1 className='mb-7 text-3xl font-bold'>{event.title}</h1>
+        <p>
+          <a href="/events" className='bg-blue-950 py-3 mb-6 px-6 inline-block text-white rounded-lg hover:bg-opacity-50'>
+            Back to events
+          </a>
+        </p>
+        <h1 className='mb-7 text-4xl font-extrabold text-center'>{event.title}</h1>
         
         <img src={event.image} alt={event.description} />
         
