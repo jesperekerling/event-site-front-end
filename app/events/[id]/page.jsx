@@ -65,11 +65,7 @@ function ShowEvent() {
 
   return (
     <div>
-        <p>
-          <a href="/events" className='bg-blue-950 py-3 mb-6 px-6 inline-block text-white rounded-lg hover:bg-opacity-50'>
-            Back to events
-          </a>
-        </p>
+
         <h1 className='mb-7 text-4xl font-extrabold text-center'>{event.title}</h1>
         
         <Image
@@ -93,10 +89,17 @@ function ShowEvent() {
         <h2 className='my-5 font-bold'>Event Description</h2>
         <p className='mb-7'>{event.description}</p>
         
-        <p>Price: ${event.price}</p>
-        <p>Date: {event.date}</p>
-        <p>People Attending: {event.bookings}</p>
-        <p>Total Seats: {event.seats}</p>
+        <div className='grid grid-cols-2 gap-4'>
+        <div><strong>Price:</strong> ${event.price}</div>
+        <div><strong>Date:</strong> {event.date}</div>
+        <div><strong>People Attending:</strong> {event.bookings}</div>
+        <div><strong>Total Seats:</strong> {event.seats}</div>
+        </div>
+          <a href="/events" className='bg-blue-950 py-3 mb-6 px-6 inline-block text-white rounded-lg hover:bg-opacity-50 mt-10'>
+            <button>
+              Back to events
+            </button>
+          </a>
     </div>
   )
 }
