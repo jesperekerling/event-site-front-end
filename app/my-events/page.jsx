@@ -40,6 +40,7 @@ function ShowMyEvents() {
                 width={500}
                 height={300}
                 className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200'
+                priority={true}
               />
               <p className='font-bold md:text-lg py-2'>{event.title}</p>
               <p className='text-sm md:text-base'>{event.date} - {event.location}</p>

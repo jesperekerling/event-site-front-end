@@ -80,7 +80,7 @@ function ShowEvents() {
         </ul>
 
         <div className='grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6'>
-          {filteredEvents.map((event, index) => (
+          {filteredEvents.sort((a, b) => new Date(a.date) - new Date(b.date)).map((event, index) => (
             <div 
               key={index} 
               style={{opacity: new Date(event.date) < new Date() ? 0.5 : 1}}
@@ -92,6 +92,7 @@ function ShowEvents() {
                     width={500}
                     height={300}
                     className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200 rounded'
+                    priority={true}
                   />
                   <p className='font-bold md:text-lg pt-2 pb-1 text-blue-900'>{event.title}</p>
                   <p className='text-xs md:text-sm text-gray-500 pb-3'>{event.date} - {event.location}</p>

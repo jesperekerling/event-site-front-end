@@ -77,8 +77,9 @@ function ShowEvent() {
           src={event.image}
           alt={event.description}
           className='w-full'
-          width={800}
-          height={800}
+          width={1200}
+          height={1200}
+          priority={true}
         />
         
         <button 
