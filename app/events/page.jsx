@@ -10,7 +10,7 @@ function ShowEvents() {
   const [endDate, setEndDate] = useState(null)
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events`)
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events`)
       .then(response => response.json())
       .then(data => {
         // Sort events by location and date

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { useUser } from '@clerk/clerk-react'
+import Image from 'next/image'
 
 function ShowEvent() {
   const [event, setEvent] = useState({})
@@ -11,7 +12,7 @@ function ShowEvent() {
   const [loading, setLoading] = useState(true);
 
   const fetchEvent = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/${id}`);
     const data = await response.json();
     setEvent(data);
     setLoading(false);
@@ -23,7 +24,7 @@ function ShowEvent() {
     }
 
     const userId = user.id;
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}?id=${userId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/${id}?id=${userId}`);
     const data = await response.json();
     setEvent(data);
     setLoading(false);
@@ -32,7 +33,7 @@ function ShowEvent() {
   const handleButtonClick = async () => {
     const userId = user.id;
   
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/events/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +73,13 @@ function ShowEvent() {
         </p>
         <h1 className='mb-7 text-4xl font-extrabold text-center'>{event.title}</h1>
         
-        <img src={event.image} alt={event.description} />
+        <Image
+          src={event.image}
+          alt={event.description}
+          className='w-full'
+          width={800}
+          height={800}
+        />
         
         <button 
           className={`text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold w-full ${event.seats === 0 ? 'bg-red-800' : 'bg-green-800'}`}

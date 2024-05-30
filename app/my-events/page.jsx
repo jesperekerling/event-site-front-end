@@ -14,7 +14,7 @@ function ShowMyEvents() {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:3000/api/events?id=${user.id}`)
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events?id=${user.id}`)
         .then(response => response.json())
         .then(data => {
           setEvents(data)
