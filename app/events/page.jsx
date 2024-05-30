@@ -30,16 +30,18 @@ function ShowEvents() {
 
   // Filter events by selected location, date range, and future dates
   const filteredEvents = events.filter(event => {
+    const eventDate = new Date(event.date).setHours(0, 0, 0, 0);
+    const currentDate = new Date().setHours(0, 0, 0, 0);
     if (selectedLocation && event.location !== selectedLocation) {
       return false;
     }
-    if (startDate && new Date(event.date) < new Date(startDate)) {
+    if (startDate && eventDate < new Date(startDate)) {
       return false;
     }
-    if (endDate && new Date(event.date) > new Date(endDate)) {
+    if (endDate && eventDate > new Date(endDate)) {
       return false;
     }
-    if (new Date(event.date) < new Date()) {
+    if (eventDate < currentDate) {
       return false;
     }
     return true;
