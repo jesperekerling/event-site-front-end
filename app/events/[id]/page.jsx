@@ -10,29 +10,28 @@ function ShowEvent() {
   const { id } = useParams()
   const { user } = useUser();
   const [loading, setLoading] = useState(true);
+  const [bookingStatus, setBookingStatus] = useState(null);
 
   const fetchEvent = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/${id}`);
     const data = await response.json();
     setEvent(data);
-    setLoading(false);
   }
-
+  
   const checkBooking = async () => {
     if (!user) {
       return;
     }
-
+  
     const userId = user.id;
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/${id}?id=${userId}`);
     const data = await response.json();
-    setEvent(data);
+    setBookingStatus(data.booked);
     setLoading(false);
   }
-
+  
   const handleButtonClick = async () => {
     const userId = user.id;
-  
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/events/${id}`, {
       method: 'POST',
       headers: {
@@ -46,23 +45,23 @@ function ShowEvent() {
     }
   
     await checkBooking();
+    await fetchEvent(); // Fetch the event data again to update the seats and bookings
   }
-
+  
   useEffect(() => {
+    fetchEvent();
     if (user) {
-      checkBooking(); // Check the booking when the component mounts
+      checkBooking();
     }
   }, [id, user?.id]);
-
-  useEffect(() => {
-    fetchEvent(); // Fetch the data when the component mounts
-  }, [id]);
-
+  
   if (loading) {
     return <p>Loading...</p>;
   }
 
-  console.log(event.booked)
+  const buttonText = bookingStatus ? 'Cancel booking' : 'Book event';
+
+  console.log(bookingStatus)
 
   return (
     <div>
@@ -82,13 +81,14 @@ function ShowEvent() {
           priority={true}
         />
         
-        <button 
-          className={`text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold w-full ${event.seats === 0 ? 'bg-red-800' : 'bg-green-800'}`}
-          onClick={handleButtonClick}
-          disabled={event.seats === 0}
-        >
-          {event.seats === 0 ? 'Event fully booked' : (event.booked === true ? 'You are registered for the event' : 'Sign me up for the event')}
-        </button>
+        <button className={`text-white py-5 px-10 mt-2 rounded-lg hover:opacity-75 font-bold w-full ${bookingStatus ? (event.seats === 0 ? 'bg-red-800' : 'bg-red-900') : 'bg-green-900'}`}
+          onClick={handleButtonClick}>
+            {buttonText}
+          </button>
+
+        {bookingStatus && <p className='mt-5 text-center font-bold bg-green-100 py-4'>You are booked to this event.</p>}
+
+        {event.seats === 0 && <p className='mt-5 text-center font-bold bg-red-100 py-4'>All seats are booked.</p>}
 
         <h2 className='my-5 font-bold'>Event Description</h2>
         <p className='mb-7'>{event.description}</p>
@@ -96,9 +96,7 @@ function ShowEvent() {
         <p>Price: ${event.price}</p>
         <p>Date: {event.date}</p>
         <p>People Attending: {event.bookings}</p>
-        <p>
-            Total Seats: {event.seats}
-        </p>
+        <p>Total Seats: {event.seats}</p>
     </div>
   )
 }
