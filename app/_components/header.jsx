@@ -6,10 +6,10 @@ import { albert_sans } from './../fonts'
 
 function Header() {
   return (
-    <header className='container p-3 bg-slate-900 text-white flex items-center'>
+    <header className='container p-3 bg-slate-900 text-white flex items-center font-semibold'>
 
       <span className={`${albert_sans.className} mx-8 text-2xl flex-1 font-bold`}>
-        <Link href="/">
+        <Link href="/" className='hover:opacity-75'>
           Event site
         </Link>
       </span>

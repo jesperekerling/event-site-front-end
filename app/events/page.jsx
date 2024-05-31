@@ -81,11 +81,12 @@ function ShowEvents() {
           ))}
         </ul>
 
-        <div className='grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6'>
+        <div className='grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4'>
           {filteredEvents.sort((a, b) => new Date(a.date) - new Date(b.date)).map((event, index) => (
             <div 
               key={index} 
               style={{opacity: new Date(event.date) < new Date() ? 0.5 : 1}}
+              className='shadow-sm border-gray-100 border hover:border-gray-400 hover:shadow-lg'
             >
               <Link href={`/events/${event._id}`}>
                   <Image
@@ -93,11 +94,11 @@ function ShowEvents() {
                     alt={event.description}
                     width={500}
                     height={300}
-                    className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200 rounded'
+                    className='object-cover aspect-video hover:opacity-75 transition-opacity duration-200'
                     priority={true}
                   />
-                  <p className='font-bold md:text-lg pt-2 pb-1 text-blue-900'>{event.title}</p>
-                  <p className='text-xs md:text-sm text-gray-500 pb-3'>{event.date} - {event.location}</p>
+                  <p className='font-bold md:text-lg pt-2 pb-1 text-blue-900 pl-5'>{event.title}</p>
+                  <p className='text-xs md:text-sm text-gray-500 pb-3 pl-5'>{event.date} - {event.location}</p>
               </Link>
             </div>
           ))}

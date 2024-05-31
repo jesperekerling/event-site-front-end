@@ -66,7 +66,7 @@ function ShowEvent() {
   return (
     <div>
 
-        <h1 className='mb-7 text-4xl font-extrabold text-center'>{event.title}</h1>
+        <h1 className='mb-7 text-5xl font-extrabold text-center'>{event.title}</h1>
         
         <Image
           src={event.image}

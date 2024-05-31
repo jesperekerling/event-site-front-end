@@ -25,7 +25,9 @@ export default function RootLayout({ children }) {
             </SignedIn>
             
             <SignedOut>
-              <SignInButton />
+              <div className='text-center'>
+                <SignInButton className="font-bold bg-blue-900 py-5 px-10 rounded-lg text-white hover:bg-blue-700" />
+              </div>
             </SignedOut>
 
 
